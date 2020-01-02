@@ -5,39 +5,43 @@ import '../bootstrap-4.3.1-dist/css/bootstrap.min.css'
 
 export default class NavBar extends Component {
     render() {
-        function addAdmine(e) {
-            window.location = '/AddAdmin';
-            console.log('ajouter un admin')
-        }
-        function EditAdmine(e) {
-            window.location = '/EditAdmine';
-            console.log('Modifier un admin')
-        }
+     
         return (
 
+ 
+            <nav className="navbar navbar-expand-md bg-primary ">
+            
+        
+                <div className="navbar-nav">
+                    <div className="col-lg-5">
+                    <Link to="/" style={{color:'white'}} className="btn btn-primary">Accueil</Link>
+                    </div>
+                    <div className="col-lg-5">
+                    <Link to="/Etudiant" style={{color:'white'}} className="btn btn-primary">Etudiants</Link>
+                    </div>
+                    <div className="col-lg-5">
+                        <Link to="/Filiere" style={{color:'white'}} className="btn btn-primary">Filieres</Link></div>
 
-            <ul className="navbar">
-                <div className="row ">
-                    <li className="col-lg-3"><Link to="/" >Accueil </Link></li>
-                    <li className="col-lg-3"><Link to="/Etudiant">Etudiants</Link></li>
-                    <li className="col-lg-3"><Link to="/Prof">Professeurs</Link></li>
-                    <li className="col-lg-3"><Link to="/Filiere">Filieres</Link></li>
+                     </div>
+                
+               
+        </nav>
 
-                </div>
-                <div className="row ">
-                    <li className="col-md-4">
-                        <input type="button" value="Ajouter Admin" className="btn btn-secondary" onClick={addAdmine}></input>
-                    </li>
-                    <li className="col-md-4">
-                        <input type="button" value="Modifier Admin" className="btn btn-secondary" onClick={EditAdmine}></input>
-                    </li>
-                    <li className="col-md-4">
-                        <input type="button" value="Deconnecter" className="btn btn-secondary"></input>
-                    </li>
-                </div>
+            // <ul className="navbar">
+            //     <div className="row ">
+            //         <li className="col-lg-5"></li>
+            //         <li className="col-lg-5"><Link to="/Etudiant">Etudiants</Link></li>
+
+            //     </div>
+            //     <div className="row ">
+                   
+            //         <li className="col-md-4">
+            //             <input type="button" value="Deconnecter" className="btn btn-primary btn-sm"></input>
+            //         </li>
+            //     </div>
 
 
-            </ul>
+            // </ul>
 
 
         )

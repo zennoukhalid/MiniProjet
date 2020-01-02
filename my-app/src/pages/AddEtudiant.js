@@ -1,97 +1,124 @@
 import React, { Component } from 'react'
 import '../css/Etudiant.css';
+import axios from 'axios';
+
 
 export default class AddEtudiant extends Component {
 
     constructor(props) {
-        super(props);
-        this.onChangeNom = this.onChangeNom.bind(this);
-        this.onChangePrenom = this.onChangePrenom.bind(this);
-        this.onChangeFiliere = this.onChangeFiliere.bind(this);
+        super(props);        
         this.onChangeCNE = this.onChangeCNE.bind(this);
         this.onChangeCIN = this.onChangeCIN.bind(this);
-        this.onChangeDate_naissance = this.onChangeDate_naissance.bind(this);
+        this.onChangeNom = this.onChangeNom.bind(this);
+        this.onChangePrenom = this.onChangePrenom.bind(this);
         this.onChangeAdresse = this.onChangeAdresse.bind(this);
         this.onChangeSexe = this.onChangeSexe.bind(this);
+        this.onChangeFiliere = this.onChangeFiliere.bind(this);
+        this.onChangeDate_naissance = this.onChangeDate_naissance.bind(this);
+        
         this.onClick = this.onClick.bind(this);
 
-        this.state = {
-            Nom: '',
-            Prenom: '',
-            Filiere: '',
-            CNE: '',
-            CIN: '',
-            Date_naissance: '',
-            Adresse: '',
-            Sexe: ''
+        this.state = { 
+            cne: '',
+            cin: '',
+            nom: '',
+            prenom: '',
+            adresse: '',
+            date_naissance: new Date(),
+            sexe: '',
+            filiere: '',
+            filieres:[]
+           
+            
+            
+            
         }
 
     }
 
-    // componentDidMount() {
-    //     this.setState({
-    //         Filieres: ['test user', 'khalid', 'isil'],
-    //         Filiere: ['test']
-    //     })
-    // }
+    componentDidMount(){
+        axios.get('http://localhost:3006/api/filieres/')
+        .then(res=>{
+            if(res.data.length>0){
+                this.setState({
+                    filieres:res.data.map(filiere=>filiere.nom_filiere),
+                    filiere:res.data[0].nom_filiere
+                })
+            }
+            else{
+                alert("vous devez ajouter une filiere")
+            }
+            
+        })
+        .catch ((error)=>{
+            console.log(error);
+        })
+    }
+
+     
 
     onChangeNom(e) {
         this.setState({
-            Nom: e.target.value
+            nom: e.target.value
         });
     }
     onChangePrenom(e) {
         this.setState({
-            Prenom: e.target.value
+            prenom: e.target.value
         });
     }
     onChangeFiliere(e) {
         this.setState({
-            Filiere: e.target.value
+            filiere: e.target.value
         });
     }
     onChangeCNE(e) {
         this.setState({
-            CNE: e.target.value
+            cne: e.target.value
         });
     }
     onChangeCIN(e) {
         this.setState({
-            CIN: e.target.value
+            cin: e.target.value
         });
     }
     onChangeDate_naissance(e) {
         this.setState({
-            Date_naissance: e.target.value
+            date_naissance: e.target.value
         });
     }
     onChangeAdresse(e) {
         this.setState({
-            Adresse: e.target.value
+            adresse: e.target.value
         });
     }
     onChangeSexe(e) {
         this.setState({
-            Sexe: e.target.value
+            sexe: e.target.value
         });
     }
 
     onClick(e) {
         e.preventDefault();
 
-        const Etudiant = {
-            Nom: this.state.Nom,
-            Prenom: this.state.Prenom,
-            Filiere: this.state.Filiere,
-            CNE: this.state.CNE,
-            CIN: this.state.CIN,
-            Date_naissance: this.state.Date_naissance,
-            Adresse: this.state.Adresse,
-            Sexe: this.state.Sexe
+        const Etudiant = { 
+            cne: this.state.cne,
+            cin: this.state.cin,
+            nom: this.state.nom,
+            prenom: this.state.prenom,
+            adresse: this.state.adresse,
+
+            date_naissance: this.state.date_naissance,
+            sexe: this.state.sexe,
+            filiere: this.state.filiere,
+
 
         }
         console.log(Etudiant);
-        // window.location = '/';
+        axios.post('http://localhost:3006/api/etudiants/ajouter',Etudiant)
+        .then(res=>console.log(res.data));
+        alert("Etudiant a été ajouté");
+         window.location = '/Etudiant';
     }
 
     render() {
@@ -109,14 +136,13 @@ export default class AddEtudiant extends Component {
             <div className="container">
                 <div className="col-md-8">
                     <p style={mystyle}>Ajouter un Etudiant</p>
-                    <form onSubmit={this.onSubmit}>
                         <div className="row">
                             <div className="col-md-6">
                                 <label>Nom: </label>
                                 <input type="text"
                                     required
                                     className="form-control"
-                                    value={this.state.Nom}
+                                    value={this.state.nom}
                                     onChange={this.onChangeNom}
                                 />
                             </div>
@@ -125,7 +151,7 @@ export default class AddEtudiant extends Component {
                                 <input type="text"
                                     required
                                     className="form-control"
-                                    value={this.state.Prenom}
+                                    value={this.state.prenom}
                                     onChange={this.onChangePrenom}
                                 />
                             </div>
@@ -137,7 +163,7 @@ export default class AddEtudiant extends Component {
                                 <input type="text"
                                     required
                                     className="form-control"
-                                    value={this.state.CNE}
+                                    value={this.state.cne}
                                     onChange={this.onChangeCNE}
                                 />
                             </div>
@@ -146,7 +172,7 @@ export default class AddEtudiant extends Component {
                                 <input type="text"
                                     required
                                     className="form-control"
-                                    value={this.state.CIN}
+                                    value={this.state.cin}
                                     onChange={this.onChangeCIN}
                                 />
                             </div>
@@ -157,15 +183,17 @@ export default class AddEtudiant extends Component {
                                 <div className="form-group">
                                     <label htmlFor="sel1">Filiere:</label>
                                     <select className="form-control" required
-                                        value={this.state.Filiere}
+                                        value={this.state.filiere}
                                         onChange={this.onChangeFiliere} >
-                                        <option>Filiere1</option>
-                                        <option>Filiere2</option>
-                                        <option>Filiere3</option>
-                                        <option>Filiere4</option>
+                                            {
+                                                this.state.filieres.map(function(filiere){
+                                                    return <option key={filiere}
+                                                     >{filiere}</option>
+                                                })
+                                            }
+                                        
                                     </select>
                                 </div>
-
                             </div>
 
                             <div className="col-md-6">
@@ -173,7 +201,7 @@ export default class AddEtudiant extends Component {
                                 <input type="Date"
                                     required
                                     className="form-control"
-                                    value={this.state.Date_naissance}
+                                    value={this.state.date_naissance}
                                     onChange={this.onChangeDate_naissance}
                                 />
                             </div>
@@ -184,7 +212,7 @@ export default class AddEtudiant extends Component {
                                 <input type="text"
                                     required
                                     className="form-control"
-                                    value={this.state.Adresse}
+                                    value={this.state.adresse}
                                     onChange={this.onChangeAdresse}
                                 />
                             </div>
@@ -192,16 +220,20 @@ export default class AddEtudiant extends Component {
                                 <div className="form-group">
                                     <label>Sexe: </label>
                                     <select className="form-control" required
-                                        value={this.state.Sexe}
+                                        value={this.state.sexe}
                                         onChange={this.onChangeSexe} >
-                                        <option>M</option>
+                                        <option></option>
                                         <option>F</option>
+                                        <option>M</option>
+                                        
                                     </select>
+                                   
                                 </div>
                             </div>
                             <br></br>
                             <div className="row">
                                 <div className="col-md-6">
+                        
                                     <input type="submit" value="Valider" className="btn btn-primary"
                                         onClick={this.onClick} />
                                 </div>
@@ -212,7 +244,7 @@ export default class AddEtudiant extends Component {
                             </div>
                         </div>
 
-                    </form>
+
 
 
                 </div>

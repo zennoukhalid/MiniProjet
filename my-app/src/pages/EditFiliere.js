@@ -1,92 +1,75 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
-
-export default class EditFiliere extends Component {
+export default class AddFiliere extends Component {
     constructor(props) {
         super(props);
 
         this.onChangeNom = this.onChangeNom.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeNomModule1 = this.onChangeNomModule1.bind(this);
-        this.onChangeNoteModule1 = this.onChangeNoteModule1.bind(this);
 
-        this.onChangeNomModule2 = this.onChangeNomModule2.bind(this);
-        this.onChangeNoteModule2 = this.onChangeNoteModule2.bind(this);
-
-
-        this.onClick = this.onClick.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            Nom: '',
-            Description: '',
-            Modules1: [
-                {
-                    NomModule1: '',
-                    NoteModule1: ''
-                }
-            ],
-            Modules2: [
-                {
-                    NomModule2: '',
-                    NoteModule2: ''
-                }
-            ]
+            nom_filiere: '',
+            description: '',
 
         }
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:3006/api/filieres/'+this.props.match.params.id)
+        .then(res=>{
+            this.setState({
+                nom_filiere: res.data.nom_filiere,
+                description: res.data.description
+              
+            })
+        })
+        .catch ((error)=>{
+            console.log(error);
+        })
     }
 
     onChangeNom(e) {
         this.setState({
-            Nom: e.target.value
+            nom_filiere: e.target.value
         });
     }
     onChangeDescription(e) {
         this.setState({
-            Description: e.target.value
+            description: e.target.value
         });
     }
 
-    onChangeNomModule1(e) {
-        this.setState({
-            NomModule1: e.target.value
-        });
-    }
-    onChangeNoteModule1(e) {
-        this.setState({
-            NoteModule1: e.target.value
-        });
-    }
-    onChangeNomModule2(e) {
-        this.setState({
-            NomModule2: e.target.value
-        });
-    }
-    onChangeNoteModule2(e) {
-        this.setState({
-            NoteModule2: e.target.value
-        });
-    }
-
-    onClick(e) {
+  
+   
+    onSubmit(e) {
         e.preventDefault();
 
         const Filiere = {
-            Nom: this.state.Nom,
-            Description: this.state.Description,
-            Modules1: [
-                this.state.NomModule1,
-                this.state.NoteModule1
-            ],
-            Modules2: [
-                this.state.NomModule2,
-                this.state.NoteModule2
-            ]
-
+            nom_filiere: this.state.nom_filiere,
+            description: this.state.description,
 
         }
         console.log(Filiere);
+
+        axios.post('http://localhost:3006/api/filieres/modifier/'+this.props.match.params.id,Filiere)
+        .then(res=>console.log(res.data));
+        alert("Filiere a été modifié")
+
+        window.location = '/Filiere';
+
     }
+
+  
     render() {
+        const mystyle = {
+            color: "blue",
+            padding: "10px",
+            fontFamily: "Arial",
+            margin:"0 0 0 10px"
+        };
         function annuler(e) {
             window.location = '/Filiere';
             console.log("annuler");
@@ -94,81 +77,33 @@ export default class EditFiliere extends Component {
         }
         return (
             <div className="container">
-                <h3>Modifier une Filiere</h3>
+                <h4 style={mystyle}>Ajouter une Filiere</h4>
                 <div className="row">
                     <div className="col-md-6">
                         <label>Nom: </label>
                         <input type="text"
                             required
                             className="form-control"
-                            value={this.state.Nom}
+                            value={this.state.nom_filiere}
                             onChange={this.onChangeNom}
                         />
-                    </div>
-                    <div className="col-md-6">
-                        <div className="form-group">
-                            <label htmlFor="Description">Description</label>
-                            <textarea className="form-control"
-                                id="Description" rows="3"
-                                value={this.state.Description}
-                                onChange={this.onChangeDescription}>
+                        <label htmlFor="Description">Description</label>
+                        <textarea className="form-control"
+                            id="Description" rows="3"
+                            value={this.state.description}
+                            onChange={this.onChangeDescription}>
+                        </textarea>  
+                    
 
-                            </textarea>
-                        </div>
+                    
                     </div>
+
                 </div>
-                <div className="row">
-                    <p>Modules 1</p>
-                    <hr></hr>
-                    <div className="col-md-3">
-                        <label>Nom de Module: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.NomModule1}
-                            onChange={this.onChangeNomModule1}
-                        />
-                    </div>
-
-                    <div className="col-md-3">
-                        <label>Note: </label>
-                        <input type="number"
-                            required
-                            className="form-control"
-                            value={this.state.NoteModule1}
-                            onChange={this.onChangeNoteModule1}
-                        />
-                    </div>
-                </div>
-                <div className="row">
-                    <p>Modules 2</p>
-                    <hr></hr>
-                    <div className="col-md-3">
-                        <label>Nom de Module: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.NomModule2}
-                            onChange={this.onChangeNomModule2}
-                        />
-                    </div>
-
-                    <div className="col-md-3">
-                        <label>Note: </label>
-                        <input type="number"
-                            required
-                            className="form-control"
-                            value={this.state.NoteModule2}
-                            onChange={this.onChangeNoteModule2}
-                        />
-                    </div>
-                </div>
-
-
+              
                 <div className="row">
                     <div className="col-md-6">
-                        <input type="submit" value="Modifier" className="btn btn-primary"
-                            onClick={this.onClick} />
+                        <input type="submit" value="Valider" className="btn btn-primary"
+                            onClick={this.onSubmit} />
                     </div>
                     <div className="col-md-6">
                         <input type="submit" value="Annuler" className="btn btn-primary"
