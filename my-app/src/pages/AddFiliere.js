@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Link } from '@material-ui/core';
 
 export default class AddFiliere extends Component {
     constructor(props) {
@@ -28,8 +29,8 @@ export default class AddFiliere extends Component {
         });
     }
 
-  
-   
+
+
     onSubmit(e) {
         e.preventDefault();
 
@@ -40,25 +41,20 @@ export default class AddFiliere extends Component {
         }
         console.log(Filiere);
 
-        axios.post('http://localhost:3006/api/filieres/ajouter',Filiere)
-        .then(res=>console.log(res.data));
+        axios.post('http://localhost:3006/api/filieres/ajouter', Filiere)
+            .then(res => console.log(res.data));
         alert("Filière a été ajouté");
-         window.location = '/Filiere';
     }
 
-  
+
     render() {
         const mystyle = {
             color: "blue",
             padding: "10px",
             fontFamily: "Arial",
-            margin:"0 0 0 10px"
+            margin: "0 0 0 10px"
         };
-        function annuler(e) {
-            window.location = '/Filiere';
-            console.log("annuler");
 
-        }
         return (
             <div className="container">
                 <h4 style={mystyle}>Ajouter une Filiere</h4>
@@ -76,22 +72,23 @@ export default class AddFiliere extends Component {
                             id="Description" rows="3"
                             value={this.state.Description}
                             onChange={this.onChangeDescription}>
-                        </textarea>  
-                    
+                        </textarea>
 
-                    
+
+
                     </div>
 
                 </div>
-              
+
                 <div className="row">
                     <div className="col-md-6">
                         <input type="submit" value="Valider" className="btn btn-primary"
                             onClick={this.onSubmit} />
                     </div>
                     <div className="col-md-6">
-                        <input type="submit" value="Annuler" className="btn btn-primary"
-                            onClick={annuler} />
+                        <Link to='/Filiere'>
+                            <input type="submit" value="Annuler" className="btn btn-primary" />
+                        </Link>
                     </div>
                 </div>
             </div>

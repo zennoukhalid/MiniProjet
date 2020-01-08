@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import '../css/Etudiant.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from '@material-ui/core';
 
 
-export default class AddEtudiant extends Component {
+export default class EditProf extends Component {
 
     constructor(props) {
         super(props);
-        this.onChangeCNE = this.onChangeCNE.bind(this);
+        this.onChangephone = this.onChangephone.bind(this);
         this.onChangeCIN = this.onChangeCIN.bind(this);
         this.onChangeNom = this.onChangeNom.bind(this);
         this.onChangePrenom = this.onChangePrenom.bind(this);
@@ -20,12 +20,12 @@ export default class AddEtudiant extends Component {
         this.onClick = this.onClick.bind(this);
 
         this.state = {
-            cne: '',
+            phone: '',
             cin: '',
             nom: '',
             prenom: '',
             adresse: '',
-            date_naissance: new Date(),
+            date_naissance: '',
             sexe: '',
             filiere: '',
             filieres: []
@@ -45,6 +45,7 @@ export default class AddEtudiant extends Component {
                         filieres: res.data.map(filiere => filiere.nom_filiere),
                         filiere: res.data[0].nom_filiere
                     })
+                    console.log(res.data[0].filiere)
                 }
                 else {
                     alert("vous devez ajouter une filiere")
@@ -54,8 +55,23 @@ export default class AddEtudiant extends Component {
             .catch((error) => {
                 console.log(error);
             })
+        axios.get('http://localhost:3006/api/profs/' + this.props.match.params.id)
+            .then(res => {
+                this.setState({
+                    phone: res.data.phone,
+                    cin: res.data.cin,
+                    nom: res.data.nom,
+                    prenom: res.data.prenom,
+                    adresse: res.data.adresse,
+                    date_naissance: res.data.date_naissance,
+                    sexe: res.data.sexe,
+                    filiere: res.data.filiere
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
-
 
 
     onChangeNom(e) {
@@ -73,9 +89,9 @@ export default class AddEtudiant extends Component {
             filiere: e.target.value
         });
     }
-    onChangeCNE(e) {
+    onChangephone(e) {
         this.setState({
-            cne: e.target.value
+            phone: e.target.value
         });
     }
     onChangeCIN(e) {
@@ -102,8 +118,8 @@ export default class AddEtudiant extends Component {
     onClick(e) {
         e.preventDefault();
 
-        const Etudiant = {
-            cne: this.state.cne,
+        const Prof = {
+            phone: this.state.phone,
             cin: this.state.cin,
             nom: this.state.nom,
             prenom: this.state.prenom,
@@ -115,11 +131,11 @@ export default class AddEtudiant extends Component {
 
 
         }
-        console.log(Etudiant);
-        axios.post('http://localhost:3006/api/etudiants/ajouter', Etudiant)
+        console.log(Prof);
+        axios.post('http://localhost:3006/api/profs/modifier/' + this.props.match.params.id, Prof)
             .then(res => console.log(res.data));
-        alert("Etudiant a été ajouté");
-
+        alert("Prof a est modifié")
+        // window.location = '/Prof';
     }
 
     render() {
@@ -128,15 +144,12 @@ export default class AddEtudiant extends Component {
             padding: "10px",
             fontFamily: "Arial"
         };
-        // function annuler(e) {
-        //     window.location = '/Etudiant';
-        //     console.log('annuler !!!!!!!');
-        // }
+
 
         return (
             <div className="container">
                 <div className="col-md-8">
-                    <p style={mystyle}>Ajouter un Etudiant</p>
+                    <p style={mystyle}>Modifier un Proffesseur</p>
                     <div className="row">
                         <div className="col-md-6">
                             <label>Nom: </label>
@@ -160,12 +173,12 @@ export default class AddEtudiant extends Component {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <label>CNE: </label>
+                            <label>Phone: </label>
                             <input type="text"
                                 required
                                 className="form-control"
-                                value={this.state.cne}
-                                onChange={this.onChangeCNE}
+                                value={this.state.phone}
+                                onChange={this.onChangephone}
                             />
                         </div>
                         <div className="col-md-6">
@@ -224,8 +237,10 @@ export default class AddEtudiant extends Component {
                                     value={this.state.sexe}
                                     onChange={this.onChangeSexe} >
                                     <option></option>
-                                    <option>F</option>
+
                                     <option>M</option>
+                                    <option>F</option>
+
 
                                 </select>
 
@@ -237,11 +252,11 @@ export default class AddEtudiant extends Component {
 
                                 <input type="submit" value="Valider" className="btn btn-primary"
                                     onClick={this.onClick} />
-
                             </div>
                             <div className="col-md-6">
-                                <Link to='/Etudiant'>
-                                    <input type="submit" value="Annuler" className="btn btn-primary" />
+                                <Link to='/Prof'>
+                                    <input type="submit" value="Annuler" className="btn btn-primary"
+                                    />
                                 </Link>
                             </div>
                         </div>
