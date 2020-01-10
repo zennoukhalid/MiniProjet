@@ -12,6 +12,7 @@ import Deux from '../components/deux'
 import AddProf from './AddProf'
 import EditProf from './EditProf'
 import Prof from './Prof'
+import NotFonwd from './NotFonwd'
 
 
 
@@ -42,6 +43,8 @@ export default class Home extends Component {
                         <Route path="/Filiere" component={Filiere} />
                         <Route path="/AddFiliere" component={AddFiliere} />
                         <Route path="/EditFiliere/:id" component={EditFiliere} />
+
+                        <Route path="*" component={NotFonwd} />
 
                     </Switch>
 

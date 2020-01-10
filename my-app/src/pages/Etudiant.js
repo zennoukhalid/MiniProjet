@@ -48,22 +48,28 @@ export default class Etudiant extends Component {
     // }
     render() {
 
-
-
-
         const etudiant = this.state.etudiants.map((etudiant) => (
 
-            <div className="col-md-4" key={etudiant._id}>
-                <div className="card" >
-                    <div className="card-body" >
 
-                        <i onClick={() => this.afficheInfos()} style={{ color: 'blue', cursor: 'pointer', marginLeft: '80%' }} className="fa fa-sort-down"></i>
+            <tr key={etudiant._id}>
+                <td>{etudiant.nom} {etudiant.prenom}</td>
+                <td>{etudiant.cne}</td>
+                <td>{etudiant.filiere}</td>
+                <td>{etudiant.date_naissance}</td>
+                <td>{etudiant.adresse}</td>
+                <td>{etudiant.sexe}</td>
+                <td>
+                    <Link to={"/EditEtudiant/" + etudiant._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
+                </td>
+                <td>
+                    <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteEtudiant(etudiant._id) }} ><i className="fa fa-trash-o" ></i></button>
+                </td>
+            </tr>
 
-                        <h5 className="card-title" >Nom : {etudiant.nom}</h5>
-                        <h5 className="card-title">Prenom : {etudiant.prenom}</h5>
-                        <h6 className="card-title" >Feliere : {etudiant.filiere}</h6>
 
-                        {(this.state.afficheInfo) ?
+        ))
+
+        {/* {(this.state.afficheInfo) ?
                             (<div>
 
                                 <h6 className="card-title" >CIN : {etudiant.cin}</h6>
@@ -72,19 +78,18 @@ export default class Etudiant extends Component {
                                 <h6 className="card-title">{etudiant.sexe}</h6>
 
 
-                            </div>) : null}
-                        <div className="row right">
+                            </div>) : null} */}
+        {/* <div className="row right">
                             <div className="col-md-6" style={{ left: '50%' }}>
                                 <Link to={"/EditEtudiant/" + etudiant._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
                             </div>
                             <div className="col-md-6" style={{ left: '20%' }}>
                                 <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteEtudiant(etudiant._id) }} ><i className="fa fa-trash-o" ></i></button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        ))
+                        </div> */}
+
+
+
 
         return (
             <div className="container" style={{ margin: '50px' }}>
@@ -96,10 +101,31 @@ export default class Etudiant extends Component {
 
                     </div>
                 </div>
-                <div className="card" >
+                {/* <div className="card" >
                     <div className="row">
                         {etudiant}
                     </div>
+                </div> */}
+
+                <div>
+                    <h3>les etudiants</h3>
+                    <table className="table table-bordered" >
+                        <thead className="thead-light">
+                            <tr>
+                                <th>Nom & Prenom</th>
+                                <th>CNE</th>
+                                <th>Filiere</th>
+                                <th>Date de naissance</th>
+                                <th>Adresse</th>
+                                <th>sexe</th>
+                                <th>modifier</th>
+                                <th>Suprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {etudiant}
+                        </tbody>
+                    </table>
                 </div>
 
             </div>

@@ -6,7 +6,7 @@ import axios from 'axios';
 class ChartEtudiant extends React.Component {
   state = {
     dataPie: {
-      labels: ['Etudiantes', 'Etudiant'],
+      labels: ['Etudiantes', 'Etudiants'],
       datasets: [
         {
           data: [20, 80, 100],
@@ -68,9 +68,9 @@ class ChartEtudiant extends React.Component {
   render() {
     return (
 
-      <div className="col-md-6">
+      <div className="col-md-8" style={{}}>
         <MDBContainer>
-          <h4 className="mt-5" style={{ textAlign: 'center' }}>Etudiant/Etudiantes</h4>
+          <h4 className="mt-5" style={{ textAlign: 'center' }}>Etudiants et Etudiantes</h4>
           <Pie data={this.state.dataPie} options={{ responsive: true }} />
         </MDBContainer>
       </div>

@@ -41,37 +41,50 @@ export default class Filiere extends Component {
 
 
         const filiere = this.state.filieres.map(filiere => (
-            <div className="col-md-4" key={filiere._id}>
-                <div className="card" >
-                    <div className="card-body">
 
-                        <i onClick={() => this.afficheInfos()} style={{ color: 'blue', cursor: 'pointer', marginLeft: '80%' }} className="fa fa-sort-down"></i>
+            <tr key={filiere._id}>
+                <td>{filiere.nom_filiere}</td>
+                <td>{filiere.description}</td>
+                <td>
+                    <Link to={"/EditFiliere/" + filiere._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
+                </td>
+                <td>
+                    <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteFiliere(filiere._id) }} ><i className="fa fa-trash-o" ></i></button>
+                </td>
+            </tr>
 
-                        <h5 className="card-title">{filiere.nom_filiere}</h5>
+            // <div className="col-md-4" key={filiere._id}>
+            //     <div className="card" >
+            //         <div className="card-body">
+
+            //             <i onClick={() => this.afficheInfos()} style={{ color: 'blue', cursor: 'pointer', marginLeft: '80%' }} className="fa fa-sort-down"></i>
+
+            //             <h5 className="card-title">{filiere.nom_filiere}</h5>
 
 
-                        {(this.state.afficheInfo) ?
-                            (<div>
-                                <h6 className="card-title">Description :{filiere.description}</h6>
-                            </div>)
-                            : null
-                        }
-                        <div>
-                            <button style={{ marginTop: '5%' }} className="btn btn-outline-info btn-sx" onClick={(e) => { window.location = '/Etudiant/' + filiere.nom_filiere }} >Etudiants</button>
-                        </div>
-                        <div className="row right">
+            //             {(this.state.afficheInfo) ?
+            //                 (<div>
+            //                     <h6 className="card-title">Description :{filiere.description}</h6>
+            //                 </div>)
+            //                 : null
+            //             }
+            //             <div>
 
-                            <div className="col-md-6" style={{ left: '50%' }} >
-                                <Link to={"/EditFiliere/" + filiere._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
-                            </div>
-                            <div className="col-md-6" style={{ left: '20%' }}>
-                                <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteFiliere(filiere._id) }} ><i className="fa fa-trash-o" ></i></button>
-                            </div>
+            //                 <button style={{ marginTop: '5%' }} className="btn btn-outline-info btn-sx" onClick={(e) => { window.location = '/Etudiant/' + filiere.nom_filiere }} >Etudiants</button>
+            //             </div>
+            //             <div className="row right">
 
-                        </div>
-                    </div>
-                </div>
-            </div>
+            //                 <div className="col-md-6" style={{ left: '50%' }} >
+            //                     <Link to={"/EditFiliere/" + filiere._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
+            //                 </div>
+            //                 <div className="col-md-6" style={{ left: '20%' }}>
+            //                     <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteFiliere(filiere._id) }} ><i className="fa fa-trash-o" ></i></button>
+            //                 </div>
+
+            //             </div>
+            //         </div>
+            //     </div>
+            // </div>
         ))
 
         return (
@@ -83,10 +96,21 @@ export default class Filiere extends Component {
                         </Link>
                     </div>
                 </div>
-                <div className="card" >
-                    <div className="row">
-                        {filiere}
-                    </div>
+                <div>
+                    <h3>les Filières</h3>
+                    <table className="table table-bordered" >
+                        <thead className="thead-light">
+                            <tr className="table-primary">
+                                <th>Nom de Filiere</th>
+                                <th>Description</th>
+                                <th>modifier</th>
+                                <th>Suprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filiere}
+                        </tbody>
+                    </table>
                 </div>
 
             </div>

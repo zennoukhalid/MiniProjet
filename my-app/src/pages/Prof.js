@@ -52,38 +52,54 @@ export default class Prof extends Component {
 
 
         const prof = this.state.profs.map((prof) => (
+            <tr key={prof._id}>
+                <td>{prof.nom} {prof.prenom}</td>
+                <td>{prof.phone}</td>
+                <td>{prof.filiere}</td>
+                <td>{prof.date_naissance.substring(0, 10)}</td>
+                <td>{prof.cin}</td>
+                <td>{prof.adresse}</td>
+                <td>{prof.sexe}</td>
 
-            <div className="col-md-4" key={prof._id}>
-                <div className="card" >
-                    <div className="card-body" >
+                <td>
+                    <Link to={"/EditProf/" + prof._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
+                </td>
+                <td>
+                    <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteProf(prof._id) }} ><i className="fa fa-trash-o" ></i></button>
+                </td>
+            </tr>
+            // <div className="col-md-4" key={prof._id}>
+            //     <div className="card" >
+            //         <div className="card-body" >
 
-                        <i onClick={() => this.afficheInfos()} style={{ color: 'blue', cursor: 'pointer', marginLeft: '80%' }} className="fa fa-sort-down"></i>
+            //             <i onClick={() => this.afficheInfos()} style={{ color: 'blue', cursor: 'pointer', marginLeft: '80%' }} className="fa fa-sort-down"></i>
 
-                        <h5 className="card-title" >Nom : {prof.nom}</h5>
-                        <h5 className="card-title">Prenom : {prof.prenom}</h5>
-                        <h6 className="card-title" >Feliere : {prof.filiere}</h6>
+            //             <h5 className="card-title" >Nom : {prof.nom}</h5>
+            //             <h5 className="card-title">Prenom : {prof.prenom}</h5>
+            //             <h6 className="card-title" >Feliere : {prof.filiere}</h6>
 
-                        {(this.state.afficheInfo) ?
-                            (<div>
+            //             {(this.state.afficheInfo) ?
+            //                 (<div>
 
-                                <h6 className="card-title" >CIN : {prof.cin}</h6>
-                                <h6 className="card-title">Phone : {prof.phone}</h6>
-                                <h6 className="card-title">Adresse : {prof.adresse}</h6>
-                                <h6 className="card-title">{prof.sexe}</h6>
+            //                     <h6 className="card-title" >CIN : {prof.cin}</h6>
+            //                     <h6 className="card-title">Phone : {prof.phone}</h6>
+            //                     <h6 className="card-title">Adresse : {prof.adresse}</h6>
+            //                     <h6 className="card-title">{prof.sexe}</h6>
 
 
-                            </div>) : null}
-                        <div className="row right">
-                            <div className="col-md-6" style={{ left: '50%' }}>
-                                <Link to={"/EditProf/" + prof._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
-                            </div>
-                            <div className="col-md-6" style={{ left: '20%' }}>
-                                <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteProf(prof._id) }} ><i className="fa fa-trash-o" ></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            //                 </div>) : null}
+            //             <div className="row right">
+            //                 <div className="col-md-6" style={{ left: '50%' }}>
+            //                     <Link to={"/EditProf/" + prof._id} > <button className="btn btn-outline-info btn-sx"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link>
+            //                 </div>
+            //                 <div className="col-md-6" style={{ left: '20%' }}>
+            //                     <button className="btn btn-outline-danger btn-sx" onClick={() => { this.deleteProf(prof._id) }} ><i className="fa fa-trash-o" ></i></button>
+            //                 </div>
+            //             </div>
+            //         </div>
+            //     </div>
+            // </div>
+
         ))
 
         return (
@@ -95,10 +111,26 @@ export default class Prof extends Component {
                         </Link>
                     </div>
                 </div>
-                <div className="card" >
-                    <div className="row">
-                        {prof}
-                    </div>
+                <div>
+                    <h3>les Prosffesseurs</h3>
+                    <table className="table table-bordered" >
+                        <thead className="thead-light">
+                            <tr className="table-primary">
+                                <th>Nom & Prenom</th>
+                                <th>Téléphone</th>
+                                <th>Filiere</th>
+                                <th>Date de naissance</th>
+                                <th>CIN</th>
+                                <th>Adrese</th>
+                                <th>Sexe</th>
+                                <th>modifier</th>
+                                <th>Suprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {prof}
+                        </tbody>
+                    </table>
                 </div>
 
             </div>

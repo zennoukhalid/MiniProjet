@@ -11,8 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import '../css/Login.css';
 
-
-
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +19,10 @@ export default class Login extends Component {
 
         this.state = {
             email: null,
-            password: null
+            password: null,
+            message1: "",
+            message2: ""
+
         }
     }
     submit(e) {
@@ -32,9 +33,14 @@ export default class Login extends Component {
         axios.post('http://localhost:3006/api/admin/auth', body).then(res => {
             if (res.data.length > 0) {
                 if (res.data[0].password === password) this.props.signIn(res.data[0]);
-                else alert('Password incorrect');
+                else this.setState({
+                    message2: "le mot de passe n'est pas valider"
+                });
             }
-            else alert('Email incorrect');
+            else this.setState({
+                message1: "l'adresse email n'est pas valide  "
+            }
+            )
 
         });
 
@@ -61,6 +67,10 @@ export default class Login extends Component {
                                 this.setState({ email: e.target.value })
                             }}
                         />
+
+                        <p style={{ color: 'black', backgroundColor: 'rgb(247, 129, 129)' }}>{this.state.message1}</p>
+
+
                         <TextField
                             variant="outlined"
                             margin="none"
@@ -75,6 +85,9 @@ export default class Login extends Component {
                                 this.setState({ password: e.target.value })
                             }}
                         />
+
+                        <p style={{ color: 'black', backgroundColor: 'rgb(247, 129, 129)' }}>{this.state.message2}</p>
+
                         <Button
                             type="submit"
                             fullWidth

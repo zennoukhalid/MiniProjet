@@ -9,10 +9,13 @@ export default class Deux extends Component {
     render() {
         return (
 
-            <div className="col-md-10">
-
-                <ChartEtudiant />
-                <ChartFiliere />
+            <div className="row" style={{ backgroundColor: 'rgb(229, 232, 236)', margin: '50px' }}>
+                <div className="col-md-6">
+                    <ChartEtudiant />
+                </div>
+                <div className="col-md-6">
+                    <ChartFiliere />
+                </div>
 
             </div>
 
