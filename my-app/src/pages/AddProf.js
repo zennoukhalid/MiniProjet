@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import '../css/Etudiant.css';
 import axios from 'axios';
-import { Link } from '@material-ui/core';
 
 
 export default class AddProf extends Component {
@@ -28,7 +27,8 @@ export default class AddProf extends Component {
             date_naissance: new Date(),
             sexe: '',
             filiere: '',
-            filieres: []
+            filieres: [],
+            message:''
 
 
 
@@ -113,25 +113,33 @@ export default class AddProf extends Component {
             sexe: this.state.sexe,
             filiere: this.state.filiere,
 
-
         }
+
+        if((Prof.cin==="")||(Prof.nom==="")||(Prof.prenom==="")||(Prof.adresse==="")||(Prof.date_naissance==="")
+        ||(Prof.sexe==="")||(Prof.filiere==="")){
+            this.setState({
+                message:"vous devez remplir tous les champs"
+            })
+        }
+        else{
         console.log(Prof);
         axios.post('http://localhost:3006/api/profs/ajouter', Prof)
             .then(res => console.log(res.data));
         alert("Prof a été ajouté");
-        // window.location = '/Prof';
+        this.props.history.push('/Prof')
     }
-
+    }
+    annuler(e) {
+        this.props.history.push('/Prof')
+           console.log('annuler !!!!!!!');
+       }
     render() {
         const mystyle = {
             color: "blue",
             padding: "10px",
             fontFamily: "Arial"
         };
-        // function annuler(e) {
-        //     window.location = '/Prof';
-        //     console.log('annuler !!!!!!!');
-        // }
+      
 
         return (
             <div className="container">
@@ -198,6 +206,7 @@ export default class AddProf extends Component {
                                 </div>
                             </div>
 
+
                             <div className="col-md-6">
                                 <label>Date de naissance: </label>
                                 <input type="Date"
@@ -232,6 +241,7 @@ export default class AddProf extends Component {
 
                                 </div>
                             </div>
+                            <p style={{ color: 'black', backgroundColor: 'rgb(247, 129, 129)' }}>{this.state.message}</p>
                             <br></br>
                             <div className="row">
                                 <div className="col-md-6">
@@ -240,10 +250,10 @@ export default class AddProf extends Component {
                                         onClick={this.onClick} />
                                 </div>
                                 <div className="col-md-6">
-                                    <Link to='/Prof'>
-                                        <input type="submit" value="Annuler" className="btn btn-primary"
-                                        /></Link>
-                                </div>
+                                
+                                <input type="submit" onClick={(e)=>{this.annuler(e)}} value="Annuler" className="btn btn-primary" />
+                            
+                        </div>
                             </div>
                         </div>
 

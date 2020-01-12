@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Link } from '@material-ui/core';
 
 export default class AddFiliere extends Component {
     constructor(props) {
@@ -14,6 +13,7 @@ export default class AddFiliere extends Component {
         this.state = {
             Nom: '',
             Description: '',
+            message1:''
 
         }
     }
@@ -33,19 +33,33 @@ export default class AddFiliere extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
         const Filiere = {
             nom_filiere: this.state.Nom,
             description: this.state.Description,
-
         }
         console.log(Filiere);
+        if((Filiere.nom_filiere==="")||(Filiere.description==="")){
+            this.setState({
+                message1:"vous devez remplir tous les champs!!!"
+            })
+        }
+
+        else{
 
         axios.post('http://localhost:3006/api/filieres/ajouter', Filiere)
             .then(res => console.log(res.data));
         alert("Filière a été ajouté");
+
+        this.props.history.push('/Filiere')
+
+    }
     }
 
+     annuler(e) {
+         this.props.history.push('/Filiere')
+            console.log('annuler !!!!!!!');
+        }
+   
 
     render() {
         const mystyle = {
@@ -59,14 +73,16 @@ export default class AddFiliere extends Component {
             <div className="container">
                 <h4 style={mystyle}>Ajouter une Filiere</h4>
                 <div className="row">
+
                     <div className="col-md-6">
                         <label>Nom: </label>
                         <input type="text"
-                            required
+                            required="true"
                             className="form-control"
                             value={this.state.Nom}
                             onChange={this.onChangeNom}
                         />
+
                         <label htmlFor="Description">Description</label>
                         <textarea className="form-control"
                             id="Description" rows="3"
@@ -74,6 +90,8 @@ export default class AddFiliere extends Component {
                             onChange={this.onChangeDescription}>
                         </textarea>
 
+
+                        <p style={{ color: 'black', backgroundColor: 'rgb(247, 129, 129)' }}>{this.state.message1}</p>
 
 
                     </div>
@@ -86,10 +104,10 @@ export default class AddFiliere extends Component {
                             onClick={this.onSubmit} />
                     </div>
                     <div className="col-md-6">
-                        <Link to='/Filiere'>
-                            <input type="submit" value="Annuler" className="btn btn-primary" />
-                        </Link>
-                    </div>
+                                
+                                    <input type="submit" onClick={(e)=>{this.annuler(e)}} value="Annuler" className="btn btn-primary" />
+                                
+                            </div>
                 </div>
             </div>
         )

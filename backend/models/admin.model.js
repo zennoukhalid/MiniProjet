@@ -15,10 +15,7 @@ const adminSchema = new Schema({
     required: true,
     unique: false
   },
-  username: {
-    type: String,
-    required: true,
-  },
+ 
 
 
 },
@@ -28,11 +25,11 @@ const adminSchema = new Schema({
 
 /*****password */
 // adminSchema.pre('save', function (next) {
-//   var hash = bcrypt.hashSync(this.password, 8);
+//    var hash = bcrypt.hashSync(this.password, 8);
 
-//   this.password = hash;
-//   next();
-// })
+//    this.password = hash;
+//    next();
+//  })
 
 
 

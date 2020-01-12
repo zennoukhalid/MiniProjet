@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5e1a8315685da635449b0b38"},"email":"admin@gmail.com","password":"admin","createdAt":{"$date":{"$numberLong":"1578795797790"}},"updatedAt":{"$date":{"$numberLong":"1578795797790"}},"__v":{"$numberInt":"0"}}

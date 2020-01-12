@@ -9,7 +9,7 @@ class ChartFiliere extends React.Component {
       labels: [],
       datasets: [
         {
-          data: [20, 80],
+          data: [],
           backgroundColor: [
 
 
@@ -46,8 +46,8 @@ class ChartFiliere extends React.Component {
               console.log("le nombre est " + a + " " + fil.length);
               tab.push(fil.length);
 
-              backH.push(`rgb(${i + c},${c + 50},${i + 50})`);
-              c = c + 100;
+              backH.push(`rgb(${i +c},${c + 50},${i +10})`);
+              c = c +40;
               i++;
 
             }
@@ -73,11 +73,14 @@ class ChartFiliere extends React.Component {
   render() {
     return (
 
-      <div className="col-md-8" style={{ left: '40%' }}>
+      <div style={{  left:"20%"}}>
         <MDBContainer >
-          <h4 className="mt-5" style={{ textAlign: 'center' }}>Nombre des etudiants dans chaque filiere</h4>
+          <h5 className="mt-5" style={{ textAlign: 'center' }}>Nombre des étudiants dans chaque filière</h5>
+          <br/>
           <Pie data={this.state.dataPie} options={{ responsive: true }} />
         </MDBContainer>
+        <br></br>
+
       </div>
 
     );

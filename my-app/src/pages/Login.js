@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import '../css/Login.css';
 
+
+
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -50,7 +52,7 @@ export default class Login extends Component {
     render() {
         return (
             <div className='container' >
-                <div className="login-card">
+                <div className="login-card" style={{marginLeft:'22%', marginTop:'5%'}}> 
                     <h1>Log in</h1><br />
                     <form noValidate>
                         <TextField

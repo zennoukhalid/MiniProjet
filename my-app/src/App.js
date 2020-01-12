@@ -12,14 +12,14 @@ export default class App extends Component {
     this.state = {
       loggedIn: false,
       user: {
-        email: 'khalidzennou@gmail.com',
-        password: 'Khalid1001',
+        emai:'',
+        password:''
       },
     }
   }
 
   render() {
-    const app = this.state.loggedIn ?
+    const app = this.state.loggedIn?
       <Home signout={() => this.setState({ loggedIn: false, user: null })} user={this.state.user} /> :
       <Login signIn={(user) => this.setState({ loggedIn: true, user: user })} />;
 

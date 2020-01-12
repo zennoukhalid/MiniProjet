@@ -15,12 +15,12 @@ router.route('/auth').post((req, res) => {
 
 /*localhost:3006/api/admin/ajouter */
 router.route('/ajouter').post(async (req, res) => {
-    const { email, password, username } = req.body;
+    const { email, password } = req.body;
     const newAdmin = new admin({
         email,
 
         password,
-        username,
+       
 
     });
     newAdmin.save()

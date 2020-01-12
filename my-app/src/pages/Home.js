@@ -8,11 +8,13 @@ import AddFiliere from './AddFiliere'
 import EditFiliere from './EditFiliere'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import NavBar from '../components/NavBar'
-import Deux from '../components/deux'
 import AddProf from './AddProf'
 import EditProf from './EditProf'
 import Prof from './Prof'
 import NotFonwd from './NotFonwd'
+import ChartAccueil from '../components/ChartAccueil'
+import ChartSeulFiliere from '../components/ChartSeulFiliere'
+
 
 
 
@@ -27,22 +29,24 @@ export default class Home extends Component {
                     <NavBar signout={this.props.signout} />
 
                     <Switch>
-                        <Route path="/" exact component={Deux} />
+                        <Route path="/" exact component={ChartAccueil} />
 
-                        <Route path="/Etudiant" component={Etudiant} />
-                        <Route path="/Etudiant/:filiere" component={EtudiantFiliere} />
+                        <Route path="/Etudiant" exact component={Etudiant} />
+                        <Route path="/Etudiant/:filiere" exact component={EtudiantFiliere} />
+                        <Route path="/chart/:filiere" exact component={ChartSeulFiliere} />
 
-                        <Route path="/Prof" component={Prof} />
 
-                        <Route path="/AddEtudiant" component={AddEtudiant} />
-                        <Route path="/EditEtudiant/:id" component={EditEtudiant} />
+                        <Route path="/Prof" exact component={Prof} />
 
-                        <Route path="/AddProf" component={AddProf} />
-                        <Route path="/EditProf/:id" component={EditProf} />
+                        <Route path="/AddEtudiant" exact component={AddEtudiant} />
+                        <Route path="/EditEtudiant/:id" exact component={EditEtudiant} />
 
-                        <Route path="/Filiere" component={Filiere} />
-                        <Route path="/AddFiliere" component={AddFiliere} />
-                        <Route path="/EditFiliere/:id" component={EditFiliere} />
+                        <Route path="/AddProf" exact component={AddProf} />
+                        <Route path="/EditProf/:id" exact component={EditProf} />
+
+                        <Route path="/Filiere" exact component={Filiere} />
+                        <Route path="/AddFiliere" exact component={AddFiliere} />
+                        <Route path="/EditFiliere/:id" exact component={EditFiliere} />
 
                         <Route path="*" component={NotFonwd} />
 

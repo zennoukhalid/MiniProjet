@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e1a84c25df4ce21c84aff4f"},"nom_filiere":"ISIL","description":"isil","createdAt":{"$date":{"$numberLong":"1578796226362"}},"updatedAt":{"$date":{"$numberLong":"1578796226362"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1a84d05df4ce21c84aff50"},"nom_filiere":"MGE","description":"mge","createdAt":{"$date":{"$numberLong":"1578796240365"}},"updatedAt":{"$date":{"$numberLong":"1578796240365"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1a84e25df4ce21c84aff51"},"nom_filiere":"MT","description":"MT","createdAt":{"$date":{"$numberLong":"1578796258459"}},"updatedAt":{"$date":{"$numberLong":"1578796258459"}},"__v":{"$numberInt":"0"}}

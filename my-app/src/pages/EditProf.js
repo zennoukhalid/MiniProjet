@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import '../css/Etudiant.css';
 import axios from 'axios';
-import { Link } from '@material-ui/core';
 
 
 export default class EditProf extends Component {
@@ -135,9 +134,13 @@ export default class EditProf extends Component {
         axios.post('http://localhost:3006/api/profs/modifier/' + this.props.match.params.id, Prof)
             .then(res => console.log(res.data));
         alert("Prof a est modifié")
-        // window.location = '/Prof';
+        this.props.history.push('/Prof')
     }
 
+    annuler(e) {
+        this.props.history.push('/Prof')
+           console.log('annuler !!!!!!!');
+       }
     render() {
         const mystyle = {
             color: "blue",
@@ -254,11 +257,10 @@ export default class EditProf extends Component {
                                     onClick={this.onClick} />
                             </div>
                             <div className="col-md-6">
-                                <Link to='/Prof'>
-                                    <input type="submit" value="Annuler" className="btn btn-primary"
-                                    />
-                                </Link>
-                            </div>
+                                
+                                <input type="submit" onClick={(e)=>{this.annuler(e)}} value="Annuler" className="btn btn-primary" />
+                            
+                        </div>
                         </div>
                     </div>
 

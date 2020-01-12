@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import '../css/Etudiant.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 
 export default class AddEtudiant extends Component {
@@ -28,7 +27,8 @@ export default class AddEtudiant extends Component {
             date_naissance: new Date(),
             sexe: '',
             filiere: '',
-            filieres: []
+            filieres: [],
+            message:''
 
 
 
@@ -101,7 +101,6 @@ export default class AddEtudiant extends Component {
 
     onClick(e) {
         e.preventDefault();
-
         const Etudiant = {
             cne: this.state.cne,
             cin: this.state.cin,
@@ -113,14 +112,26 @@ export default class AddEtudiant extends Component {
             sexe: this.state.sexe,
             filiere: this.state.filiere,
 
-
         }
-        console.log(Etudiant);
+
+        if((Etudiant.cne==="")||(Etudiant.cin==="")||(Etudiant.nom==="")||(Etudiant.prenom==="")||(Etudiant.adresse==="")
+        ||(Etudiant.date_naissance==="")||(Etudiant.sexe==="")||(Etudiant.filiere==="")){
+            this.setState({
+                message:"vous devez remplir tous les champs!!!"
+            })
+        }
+        else {
         axios.post('http://localhost:3006/api/etudiants/ajouter', Etudiant)
             .then(res => console.log(res.data));
         alert("Etudiant a été ajouté");
-
+        this.props.history.push('/Etudiant')
     }
+}
+
+    annuler(e) {
+        this.props.history.push('/Etudiant')
+           console.log('annuler !!!!!!!');
+       }
 
     render() {
         const mystyle = {
@@ -128,10 +139,7 @@ export default class AddEtudiant extends Component {
             padding: "10px",
             fontFamily: "Arial"
         };
-        // function annuler(e) {
-        //     window.location = '/Etudiant';
-        //     console.log('annuler !!!!!!!');
-        // }
+        
 
         return (
             <div className="container">
@@ -228,9 +236,11 @@ export default class AddEtudiant extends Component {
                                     <option>M</option>
 
                                 </select>
+                              
 
                             </div>
                         </div>
+                        <p style={{ color: 'black', backgroundColor: 'rgb(247, 129, 129)' }}>{this.state.message}</p>
                         <br></br>
                         <div className="row">
                             <div className="col-md-6">
@@ -240,10 +250,10 @@ export default class AddEtudiant extends Component {
 
                             </div>
                             <div className="col-md-6">
-                                <Link to='/Etudiant'>
-                                    <input type="submit" value="Annuler" className="btn btn-primary" />
-                                </Link>
-                            </div>
+                                
+                                <input type="submit" onClick={(e)=>{this.annuler(e)}} value="Annuler" className="btn btn-primary" />
+                            
+                        </div>
                         </div>
                     </div>
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Link } from '@material-ui/core';
 
 export default class AddFiliere extends Component {
     constructor(props) {
@@ -59,9 +58,14 @@ export default class AddFiliere extends Component {
             .then(res => console.log(res.data));
         alert("Filiere a été modifié")
 
-
+        this.props.history.push('/Filiere')
 
     }
+    annuler(e) {
+        this.props.history.push('/Filiere')
+           console.log('annuler !!!!!!!');
+       }
+  
 
 
     render() {
@@ -103,10 +107,10 @@ export default class AddFiliere extends Component {
                             onClick={this.onSubmit} />
                     </div>
                     <div className="col-md-6">
-                        <Link to='/Filiere'>
-                            <input type="submit" value="Annuler" className="btn btn-primary"
-                            /></Link>
-                    </div>
+                                
+                                <input type="submit" onClick={(e)=>{this.annuler(e)}} value="Annuler" className="btn btn-primary" />
+                            
+                        </div>
                 </div>
             </div>
         )
