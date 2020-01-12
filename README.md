@@ -15,7 +15,7 @@ la premiere page de notre application est la page login, il faut entrer email: '
 la page accueil contient des statistiques.
 
 la page Etudiants contient la liste des etudiants avec un menu qui contient des liens qui permettent d'afficher la liste des etudiants 
-de chaque filiere.
+de chaque filiere. avec une barre de recherche qui filtre la liste des étudiants selon le nom.
 
 la page professeurs.
 
