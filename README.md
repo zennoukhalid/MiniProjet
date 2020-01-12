@@ -3,7 +3,7 @@
 Notre Mini projet contient 2 dossiers : backend et my-app(frontend);
 il faut lancer backend:  nodemon server et front end : npm start;
 url de l'application : localhost:3000;
-une base de donnès "Ecole" va être crèe automatiquement;
+une base de donnèes "Ecole" va être créée automatiquement;
 il faut importer le fichier admins.json dans la collection admin, le fichier etudiants.json dans la collection etudiants et le fichier 
 filieres.json dans la collection  filieres. ces fichiers se trouvent dans le dossier backend.
 
