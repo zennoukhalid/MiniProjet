@@ -2,7 +2,7 @@ import React from "react";
 import { Pie } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 import axios from 'axios';
-import NavbarChart from "./NavbarChart";
+import { Link } from 'react-router-dom';
 
 class ChartSeulFiliere extends React.Component {
   state = {
@@ -59,7 +59,14 @@ class ChartSeulFiliere extends React.Component {
     return (
       <div>
       <div className="col-md-7" style={{left:"20%"}}>
-        <NavbarChart/>
+        <ul className="nav nav-tabs">
+            
+          <li className="nav-item">
+              <Link className="nav-link" to= {"/"}>Tous</Link>
+          </li>
+                    
+
+           </ul>
         <MDBContainer>
           <h5 className="mt-5" style={{ textAlign: 'center' }}>{this.state.name}</h5>
           <Pie data={this.state.dataPie} options={{ responsive: true }} />
